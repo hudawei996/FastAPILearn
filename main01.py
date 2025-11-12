@@ -11,6 +11,11 @@ def read_root():
     return {"Hello": "World123"}
 
 
+@app01.get("/users/{user_id}")
+def read_user(user_id: int):
+    return {"user_id": user_id, "name": "User Name", "email": "user@email.com"}
+
+
 # 启动服务
 # 1.通过命令：uvicorn filename:app_name --reload
 # 1.通过命令：uvicorn main01:app01 --reload # 启动服务，并自动重新加载代码内容

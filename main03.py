@@ -1,0 +1,27 @@
+import uvicorn
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+# @app.get("/args1/1")
+# def path_args1():
+#     return {"message": "id1"}
+
+@app.get("/args2/{id}")
+def path_args2(id: str):
+    return {"message": id}
+
+
+@app.get("/args3/{id}")
+def path_args3(id: str):
+    return {"message3": id}
+
+
+@app.get("/args4/{id}/{name}")
+def path_args3(id: int, name):
+    return {"message": id, "name": name}
+
+
+if __name__ == "__main__":
+    uvicorn.run('main03:app', host="127.0.0.1", port=8000, reload=True)
