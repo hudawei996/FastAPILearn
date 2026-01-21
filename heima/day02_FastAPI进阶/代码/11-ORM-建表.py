@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import uvicorn
 from fastapi import FastAPI, Depends
 from sqlalchemy import DateTime, func, String, Float, select
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
@@ -7,8 +8,13 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 app = FastAPI()
 
+# 终端安装库：pip install "sqlalchemy[asyncio]" aiomysql
+# 成功后会提示：是安装了两个库，前边一个是sql库，后边一个是异步驱动
+# Installing collected packages: PyMySQL, aiomysql
+# Successfully installed PyMySQL-1.1.2 aiomysql-0.3.2
 
-# 1. 创建异步引擎
+
+# 1. 创建异步引擎 aiomysql是驱动
 ASYNC_DATABASE_URL = "mysql+aiomysql://root:123456@localhost:3306/FastAPI_first?charset=utf8"
 async_engine = create_async_engine(
     ASYNC_DATABASE_URL,
@@ -50,3 +56,7 @@ async def startup_event():
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000)
+

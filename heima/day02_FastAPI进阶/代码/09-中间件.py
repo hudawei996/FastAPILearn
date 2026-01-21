@@ -1,6 +1,16 @@
+import uvicorn
 from fastapi import FastAPI
 
 app = FastAPI()
+
+# 中间件:
+# 初始化顺序：自上而下
+# 执行顺序，自底向上，
+# 日志打印顺序：
+# 中间件2 start
+# 中间件1 start
+# 中间件1 end
+# 中间件2 end
 
 
 @app.middleware("http")
@@ -22,3 +32,6 @@ async def middleware1(request, call_next):
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000)

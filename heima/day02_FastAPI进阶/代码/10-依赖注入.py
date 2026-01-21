@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI, Query, Depends  # 2. 导入 Depends
 
 app = FastAPI()
@@ -26,3 +27,6 @@ async def get_news_list(commons=Depends(common_parameters)):
 @app.get("/user/user_list")
 async def get_user_list(commons=Depends(common_parameters)):
     return commons
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000)
